@@ -52,24 +52,51 @@ if uploaded_file is not None:
     df.rename(columns={"level_0": "number"}, inplace=True)
     df.drop(columns='Email Address', inplace=True)
 
-    connections_line = px.line(df, x="Connected On", y="number", title='Linkedin Connections Evolution')
+    connections_line = px.line(df, x="Connected On", y="number", title='Evolution of the Number of Connections ',
+                               template="simple_white", labels={'number': 'Number of Connections'})
     st.write(connections_line)
+
+
+    def split_company(company):
+        return company.split("-")[0]
+
+
+    num_companies = 15
+    height = 35 * num_companies
+
+    top_companies = pd.DataFrame(df["Company"].value_counts().head(num_companies)).reset_index()
+    top_companies.rename(columns={"index": "Company", "Company": "Number_Connections"}, inplace=True)
+    top_companies["Company"] = top_companies["Company"].apply(split_company)
+    fig = px.bar(top_companies, x='Number_Connections', y='Company', template="simple_white",
+                 color="Company", title="Top {} Companies by Number of Connections".format(num_companies),
+                 height=height)
+    fig.update_layout(showlegend=False)
+    st.write(fig)
+
+
+
+    num_positions = 15
+    height = 35 * num_positions
+
+    top_positions = pd.DataFrame(df["Position"].value_counts().head(num_positions)).reset_index()
+    top_positions.rename(columns={"index": "Position", "Position": "Number_Connections"}, inplace=True)
+
+    fig = px.bar(top_positions, x='Number_Connections', y='Position', template="simple_white",
+                 color="Position", title="Top {} Positions by Number of Connections".format(num_positions),
+                 height=height)
+    fig.update_layout(showlegend=False)
+    st.write(fig)
+
 
     df = df.dropna()
     df.loc[df['Position'].str.contains('Intern'), 'Position'] = "Intern"
     Companies = df['Company']
 
-    hist_company = go.Figure()
-    hist_company.add_trace(go.Histogram(histfunc="count",  x=df["Company"]),)
-    st.write(hist_company)
+    df['My Network'] = 'My Network'
+    df["Full Name"] = df["First Name"] + df["Last Name"]
 
-    fig = go.Figure()
-    fig.add_trace(go.Histogram(histfunc="count",  x=df["Position"]))
-    st.write(fig)
-
-    df['My Network']= 'My Network'
-
-    company_tree_map = px.treemap(df, path=['My Network', 'Company', 'Position'], width=1000, height=1000)
+    company_tree_map = px.treemap(df, path=['My Network', 'Company', 'Position', 'Full Name'], width=1000, height=800,
+                                  template="simple_white", title="Treemap with Companies & Positions")
     st.plotly_chart(company_tree_map, use_container_width=True)
 
 
