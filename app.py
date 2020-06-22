@@ -93,18 +93,16 @@ if uploaded_file is not None:
     Companies = df['Company']
 
     df['My Network'] = 'My Network'
-    df["Full Name"] = df["First Name"] + df["Last Name"]
+    df["Full Name"] = df["First Name"] + " " + df["Last Name"]
 
     company_tree_map = px.treemap(df, path=['My Network', 'Company', 'Position', 'Full Name'], width=1000, height=800,
-                                  template="simple_white", title="Treemap with Companies & Positions")
+                                  template="simple_white", title="Treemap of Companies (click on it to zoom in)")
     st.plotly_chart(company_tree_map, use_container_width=True)
+
+    positions_tree_map = px.treemap(df, path=['My Network', 'Position', 'Company', 'Full Name'], width=1000, height=800,
+                                  template="simple_white", title="Treemap of Positions (click on it to zoom in)")
+    st.plotly_chart(positions_tree_map, use_container_width=True)
 
 
 st.write("")
-st.write("Disclaimer: This site is just and MVP, and does not collect any information")
-
-
-
-
-
-
+st.write("Disclaimer: This site is just and MVP. It does not collect any information")
