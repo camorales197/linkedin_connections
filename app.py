@@ -24,13 +24,13 @@ st.write("This page guides and facilitates the process of extracting insights fr
 '''
 1. Log in in your Linkedin account and go to *"Settings & Privacy"*. 
 
-2. Under the *"Privacy"* tab, in the *"How Linkedin uses your data"* click on *"Get a copy of your data"*
+2. Under the *"Privacy"* tab, in the *"How Linkedin uses your data"* click on *"Get a copy of your data"*.
 
-3. Mark only *"Connections"* and click on *"Request archive"*
+3. Mark only *"Connections"* and click on *"Request archive"*.
 '''
 st.image(image, use_column_width=True)
 '''
-4. Now you need to wait for a few minutes while they prepare the data. They will send you an email when your download is ready. 
+4. Now you need to wait for a few minutes while they prepare the data. They will send you an email when your download is ready.
 
 5. Once you receive the email, go back to the previous page, download it, and upload it in the file selector below.
 
@@ -105,4 +105,28 @@ if uploaded_file is not None:
 
 
 st.write("")
-st.write("Disclaimer: This site is just and MVP. It does not collect any information")
+st.write("Disclaimer: This site is just an MVP. It does not collect any information.")
+
+
+st.write("Do you find it useful? " 
+"Any feedback would be highly appretiated.")
+#st.write("Número de tweets analizados por político.")
+#st.write(df_sentiment["Author"].value_counts())
+
+
+
+
+if st.button('Let´s talk! :)'):
+    js = "window.open('https://www.linkedin.com/in/carloscamorales')"  # New tab or window
+    html = '<img src onerror="{}">'.format(js)
+    div = Div(text=html)
+    st.bokeh_chart(div)
+
+
+if st.button('If you feel like having a look at the code. You are more than welcome!'):
+    js = "window.open('https://github.com/camorales197/linkedin_connections')"  # New tab or window
+    html = '<img src onerror="{}">'.format(js)
+    div = Div(text=html)
+    st.bokeh_chart(div)
+
+
