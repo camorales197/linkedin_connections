@@ -10,6 +10,10 @@ def fun(date):
     return datetime.datetime.strptime(date, "%d %b %Y").strftime("%Y-%m-%d")
 
 image = Image.open('get_data.png')
+image_example1 = Image.open('images/imag1.png')
+image_example2 = Image.open('images/imag2.png')
+image_example4 = Image.open('images/imag4.png')
+
 
 
 st.title("Exploring your Linkedin Conections")
@@ -19,8 +23,17 @@ st.write(
     'Since the arrival of GDPR law, websites are offering us the option of downloading "all" the personal data they have collected about us. '
     " However, without the proper tools or skills, this is not really useful for most users.")
 
-st.write("This page guides and facilitates the process of extracting insights from your Linkedin data. "
-         "You would be able to see a personalized graph like the one below. Just follow the steps. ")
+st.write("This page guides and facilitates the process of extracting insights from your Linkedin data, just like the following charts: ")
+
+st.image(image_example1, width=450)
+st.image(image_example2, width=450)
+st.image(image_example4, width=450)
+
+st.write("")
+st.write("")
+
+
+st.write("You would be able to see a personalized graph like the one below. Just follow the steps. ")
 '''
 1. Log in in your Linkedin account and go to *"Settings & Privacy"*. 
 
@@ -105,13 +118,17 @@ if uploaded_file is not None:
 
 
 st.write("")
-st.write("Disclaimer: This site is just an MVP. It does not collect any information.")
-
+st.write("")
+st.write("")
+st.write("")
+st.write("")
 
 st.write("Do you find it useful? " 
 "Any feedback would be highly appretiated.")
 #st.write("Número de tweets analizados por político.")
 #st.write(df_sentiment["Author"].value_counts())
+
+
 
 
 
@@ -128,5 +145,12 @@ if st.button('If you feel like having a look at the code. You are more than welc
     html = '<img src onerror="{}">'.format(js)
     div = Div(text=html)
     st.bokeh_chart(div)
+
+st.write("")
+st.write("")
+st.write("")
+
+st.write("Disclaimer: This site is just an MVP. It does not collect any information.")
+
 
 
