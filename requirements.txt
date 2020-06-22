@@ -1,0 +1,13 @@
+
+DateTime==4.3
+
+ImageHash==4.0
+
+Markdown==3.1.1
+
+pandas==0.25.3
+
+plotly==4.8.1
+
+streamlit==0.59.0
+Pillow==6.2.2

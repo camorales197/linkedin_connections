@@ -1,0 +1,83 @@
+import pandas as pd
+import plotly.express as px
+import plotly.graph_objects as go
+import datetime
+import streamlit as st
+from PIL import Image
+
+
+def fun(date):
+    return datetime.datetime.strptime(date, "%d %b %Y").strftime("%Y-%m-%d")
+
+image = Image.open('get_data.png')
+
+
+st.title("Exploring your Linkedin Conections")
+
+
+st.write(
+    'Since the arrival of GDPR law, websites are offering us the option of downloading "all" the personal data they have collected about us. '
+    " However, without the proper tools or skills, this is not really useful for most users.")
+
+st.write("This page guides and facilitates the process of extracting insights from your Linkedin data. "
+         "You would be able to see a personalized graph like the one below. Just follow the steps. ")
+'''
+1. Log in in your Linkedin account and go to *"Settings & Privacy"*. 
+
+2. Under the *"Privacy"* tab, in the *"How Linkedin uses your data"* click on *"Get a copy of your data"*
+
+3. Mark only *"Connections"* and click on *"Request archive"*
+'''
+st.image(image, use_column_width=True)
+'''
+4. Now you need to wait for a few minutes while they prepare the data. They will send you an email when your download is ready. 
+
+5. Once you receive the email, go back to the previous page, download it, and upload it in the file selector below.
+
+'''
+
+uploaded_file = st.file_uploader("Choose the *Connections.csv* file", type="csv")
+
+
+
+if uploaded_file is not None:
+    df = pd.read_csv(uploaded_file)
+    st.write("Great! Your file has been successfully received. You can see the charts below.")
+
+    df["Connected On"] = df["Connected On"].apply(fun)
+    df = df.sort_values(by="Connected On")
+    df.reset_index(inplace=True)
+    df.reset_index(inplace=True)
+    df.drop(columns="index", inplace=True)
+    df.rename(columns={"level_0": "number"}, inplace=True)
+    df.drop(columns='Email Address', inplace=True)
+
+    connections_line = px.line(df, x="Connected On", y="number", title='Linkedin Connections Evolution')
+    st.write(connections_line)
+
+    df = df.dropna()
+    df.loc[df['Position'].str.contains('Intern'), 'Position'] = "Intern"
+    Companies = df['Company']
+
+    hist_company = go.Figure()
+    hist_company.add_trace(go.Histogram(histfunc="count",  x=df["Company"]),)
+    st.write(hist_company)
+
+    fig = go.Figure()
+    fig.add_trace(go.Histogram(histfunc="count",  x=df["Position"]))
+    st.write(fig)
+
+    df['My Network']= 'My Network'
+
+    company_tree_map = px.treemap(df, path=['My Network', 'Company', 'Position'], width=1000, height=1000)
+    st.plotly_chart(company_tree_map, use_container_width=True)
+
+
+st.write("")
+st.write("Disclaimer: This site is just and MVP, and does not collect any information")
+
+
+
+
+
+
