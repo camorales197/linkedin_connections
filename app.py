@@ -1,22 +1,39 @@
 import pandas as pd
 import plotly.express as px
-import plotly.graph_objects as go
 import datetime
 import streamlit as st
 from PIL import Image
 from bokeh.models.widgets import Div
+import requests
+import os
+from dotenv import load_dotenv
 
+load_dotenv()
 
+API_KEY = os.environ.get("API_KEY")
+SERVER = os.environ.get("SERVER")
+FROM_EMAIL = os.environ.get("FROM_EMAIL")
+TO_EMAIL = os.environ.get("TO_EMAIL")
 
 def fun(date):
     return datetime.datetime.strptime(date, "%d %b %Y").strftime("%Y-%m-%d")
+
+def send_simple_message(subject):
+	return requests.post(
+		SERVER,
+		auth=("api", API_KEY),
+		data={
+            "from": subject + FROM_EMAIL,
+			"to": [TO_EMAIL],
+			"subject": subject,
+			"text": "Pretty awesome! Keep going!"})
+
+send_simple_message(subject="New visit!")
 
 image = Image.open('get_data.png')
 image_example1 = Image.open('images/imag1.png')
 image_example2 = Image.open('images/imag2.png')
 image_example4 = Image.open('images/imag4.png')
-
-
 
 st.title("Exploring your Linkedin Conections")
 
@@ -25,7 +42,7 @@ st.write(
     'Since the arrival of GDPR law, websites are offering us the option of downloading "all" the personal data they have collected about us. '
     " However, without the proper tools or skills, this is not really useful for most users.")
 
-st.write("This page guides and facilitates the process of extracting insights from your Linkedin data, just like the following charts: ")
+st.write("This page guides and facilitates the process of extracting insights about your connections from your Linkedin data, just like the following charts: ")
 
 st.image(image_example1, width=450)
 st.image(image_example2, width=450)
@@ -35,7 +52,7 @@ st.write("")
 st.write("")
 
 
-st.write("You would be able to see a personalized graph like the one below. Just follow the steps. ")
+st.write("If you want to know more about your audience with personalized graphs. Just follow the steps. ")
 '''
 1. Log in in your Linkedin account and go to *"Settings & Privacy"*. 
 
@@ -56,6 +73,7 @@ uploaded_file = st.file_uploader("Choose the *Connections.csv* file", type="csv"
 
 
 if uploaded_file is not None:
+    send_simple_message(subject="Someone inserted a CSV! ")
     df = pd.read_csv(uploaded_file)
     st.write("Great! Your file has been successfully received. You can see the charts below.")
 
