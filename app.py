@@ -28,7 +28,7 @@ def send_simple_message(subject):
 			"subject": subject,
 			"text": "Pretty awesome! Keep going!"})
 
-send_simple_message(subject="New visit!")
+send_simple_message(subject="New_visit")
 
 image = Image.open('get_data.png')
 image_example1 = Image.open('images/imag1.png')
@@ -73,7 +73,7 @@ uploaded_file = st.file_uploader("Choose the *Connections.csv* file", type="csv"
 
 
 if uploaded_file is not None:
-    send_simple_message(subject="Someone inserted a CSV! ")
+    send_simple_message(subject="Someone_inserted_a_CSV")
     df = pd.read_csv(uploaded_file)
     st.write("Great! Your file has been successfully received. You can see the charts below.")
 
