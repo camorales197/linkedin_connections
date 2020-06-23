@@ -12,3 +12,5 @@ In the website is explained how to download information about your connections f
 ![Alt text](images/imag4.png?raw=true "Title")
 
 
+## Credits 
+This project is inspired on https://github.com/kurasaiteja/LinkedIn-Visualisaion-using-Plotly using part of his code. Thank you @kurasaiteja!
