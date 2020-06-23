@@ -7,9 +7,8 @@ streamlit==0.59.0
 Pillow==6.2.2
 bokeh
 watchdog==0.10.2
-load_dotenv
 env==0.1.0
-dotenv
+
 
 
 
