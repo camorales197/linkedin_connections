@@ -41,11 +41,9 @@ st.write(
     'Since the arrival of GDPR law, websites are offering us the option of downloading "all" the personal data they have collected about us. '
     " However, without the proper tools or skills, this is not really useful for most users.")
 
-st.write("This page guides and facilitates the process of extracting insights about your connections from your Linkedin data, just like the following charts: ")
+st.write("This page guides and facilitates the process of extracting insights about your connections from your Linkedin data. ")
 
-st.image(image_example1, width=450)
-st.image(image_example2, width=450)
-st.image(image_example, width=450)
+st.image(image_example, width=450, caption="Some of the graphs you will get")
 
 st.write("")
 st.write("")
