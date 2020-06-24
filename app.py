@@ -31,9 +31,8 @@ def send_simple_message(subject):
 send_simple_message(subject="New_visit")
 
 image = Image.open('get_data.png')
-image_example1 = Image.open('images/imag1.png')
-image_example2 = Image.open('images/imag2.png')
-image_example4 = Image.open('images/imag4.png')
+
+image_example = Image.open('images/img_linkedin2.png.png')
 
 st.title("Exploring your Linkedin Conections")
 
@@ -46,7 +45,7 @@ st.write("This page guides and facilitates the process of extracting insights ab
 
 st.image(image_example1, width=450)
 st.image(image_example2, width=450)
-st.image(image_example4, width=450)
+st.image(image_example, width=450)
 
 st.write("")
 st.write("")
