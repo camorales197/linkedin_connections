@@ -32,7 +32,7 @@ send_simple_message(subject="New_visit")
 
 image = Image.open('get_data.png')
 
-image_example = Image.open('images/img_linkedin2.png.png')
+image_example = Image.open('images/img_linkedin2.png')
 
 st.title("Exploring your Linkedin Conections")
 
