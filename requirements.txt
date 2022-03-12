@@ -4,7 +4,7 @@ pandas==0.25.3
 ImageHash==4.0
 plotly==4.8.1
 streamlit==0.59.0
-Pillow==6.2.2
+Pillow==9.0.1
 bokeh
 watchdog==0.10.2
 python-dotenv==0.13.0
